@@ -49,6 +49,9 @@ public class BerlinClock {
         return IntStream.range(0, 11)
                 .mapToObj(value -> {
                     if (value < nbLightOn) {
+                        if ((value + 1) % 3 == 0) {
+                            return LightTypes.RED_LIGHT_ON;
+                        }
                         return LightTypes.YELLOW_LIGHT_ON;
                     }
                     return LightTypes.LIGHT_OFF;

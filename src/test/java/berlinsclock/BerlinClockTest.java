@@ -90,4 +90,11 @@ public class BerlinClockTest {
 
         assertThat(BerlinClock.formatFiveMinute(minute)).isEqualTo("YOOOOOOOOOO");
     }
+
+    @Test
+    public void third_light_should_be_red_for_five_minute() {
+        final Minute minute = Minute.of(15);
+
+        assertThat(BerlinClock.formatFiveMinute(minute)).isEqualTo("YYROOOOOOOO");
+    }
 }
