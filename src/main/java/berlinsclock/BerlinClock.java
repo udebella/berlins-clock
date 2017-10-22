@@ -16,6 +16,9 @@ public class BerlinClock {
     }
 
     public static String formatFiveHour(int hours) {
+        if (hours == 5) {
+            return "ROOO";
+        }
         return "OOOO";
     }
 }

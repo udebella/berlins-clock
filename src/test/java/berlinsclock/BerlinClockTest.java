@@ -19,4 +19,9 @@ public class BerlinClockTest {
     public void all_lights_should_be_stopped_when_hour_is_0() {
         assertThat(BerlinClock.formatFiveHour(0)).isEqualTo("OOOO");
     }
+
+    @Test
+    public void first_light_should_be_on_when_hour_is_5() {
+        assertThat(BerlinClock.formatFiveHour(5)).isEqualTo("ROOO");
+    }
 }
