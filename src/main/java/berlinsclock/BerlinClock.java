@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class BerlinClock {
     public static String format(LocalTime time) {
-        return formatSeconds(time.getSecond());
+        return formatSeconds(time.getSecond()) + "\n" + formatFiveHour(time.getHour());
     }
 
     public static String formatSeconds(int seconds) {
