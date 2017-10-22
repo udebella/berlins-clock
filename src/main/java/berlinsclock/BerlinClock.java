@@ -32,4 +32,8 @@ public class BerlinClock {
                 })
                 .collect(Collectors.joining());
     }
+
+    public static String formatOneHour(Hours hours) {
+        return "OOOO";
+    }
 }
