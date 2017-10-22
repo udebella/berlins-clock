@@ -37,7 +37,9 @@ public class BerlinClock {
     }
 
     public static String formatOneMinute(Minute minute) {
-        return formatOnLights(minute.getNumber(), LightTypes.YELLOW_LIGHT_ON);
+        final int nbLightOn = minute.getNumber() % 5;
+
+        return formatOnLights(nbLightOn, LightTypes.YELLOW_LIGHT_ON);
     }
 
     private static String formatOnLights(int nbLightOn) {
