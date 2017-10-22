@@ -9,7 +9,9 @@ public class BerlinClock {
         final Hours hours = Hours.of(time.getHour());
         final Seconds seconds = Seconds.of(time.getSecond());
 
-        return formatSeconds(seconds) + "\n" + formatFiveHour(hours);
+        return formatSeconds(seconds)
+                + "\n" + formatFiveHour(hours)
+                + "\n" + formatOneHour(hours);
     }
 
     public static String formatSeconds(Seconds seconds) {
