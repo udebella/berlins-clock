@@ -6,20 +6,22 @@ import java.util.stream.IntStream;
 
 public class BerlinClock {
     public static String format(LocalTime time) {
-        return formatSeconds(time.getSecond()) + "\n" + formatFiveHour(time.getHour());
+        final Hours hours = Hours.of(time.getHour());
+        final Seconds seconds = Seconds.of(time.getSecond());
+
+        return formatSeconds(seconds) + "\n" + formatFiveHour(hours);
     }
 
-    public static String formatSeconds(int seconds) {
-        return isEvenNumber(seconds) ? "Y" : "O";
+    public static String formatSeconds(Seconds seconds) {
+        return isEvenNumber(seconds.getNumber()) ? "Y" : "O";
     }
 
-    private static boolean isEvenNumber(int seconds) {
-        return seconds % 2 == 0;
+    private static boolean isEvenNumber(int number) {
+        return number % 2 == 0;
     }
 
-    public static String formatFiveHour(int hours) {
-        assert hours >= 0 && hours < 23 : "There is only 23 hours in a day";
-        int nbLightOn = hours / 5;
+    public static String formatFiveHour(Hours hours) {
+        int nbLightOn = hours.getNumber() / 5;
 
         return IntStream.range(0, 4)
                 .mapToObj(value -> {
