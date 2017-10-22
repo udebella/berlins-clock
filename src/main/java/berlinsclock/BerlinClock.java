@@ -27,7 +27,9 @@ public class BerlinClock {
     }
 
     public static String formatOneHour(Hours hours) {
-        return formatOnLights(hours.getNumber());
+        final int nbLightOn = hours.getNumber() % 5;
+
+        return formatOnLights(nbLightOn);
     }
 
     private static String formatOnLights(int nbLightOn) {

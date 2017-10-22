@@ -52,4 +52,10 @@ public class BerlinClockTest {
         final Hours hours = Hours.of(1);
         assertThat(BerlinClock.formatOneHour(hours)).isEqualTo("ROOO");
     }
+
+    @Test
+    public void all_one_hour_lights_should_be_stopped_when_hour_is_5() {
+        final Hours hours = Hours.of(5);
+        assertThat(BerlinClock.formatOneHour(hours)).isEqualTo("OOOO");
+    }
 }
