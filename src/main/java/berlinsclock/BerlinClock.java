@@ -34,6 +34,13 @@ public class BerlinClock {
     }
 
     public static String formatOneHour(Hours hours) {
-        return "OOOO";
+        return IntStream.range(0, 4)
+                .mapToObj(value -> {
+                    if (value < hours.getNumber()) {
+                        return "R";
+                    }
+                    return "O";
+                })
+                .collect(Collectors.joining());
     }
 }

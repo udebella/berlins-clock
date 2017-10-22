@@ -46,4 +46,10 @@ public class BerlinClockTest {
         final Hours hours = Hours.of(0);
         assertThat(BerlinClock.formatOneHour(hours)).isEqualTo("OOOO");
     }
+
+    @Test
+    public void first_one_hour_light_should_be_on_when_hour_is_1() {
+        final Hours hours = Hours.of(1);
+        assertThat(BerlinClock.formatOneHour(hours)).isEqualTo("ROOO");
+    }
 }
