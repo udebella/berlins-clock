@@ -14,4 +14,9 @@ public class BerlinClockTest {
     public void should_be_off_when_seconds_are_odd() {
         assertThat(BerlinClock.formatSeconds(3)).isEqualTo("O");
     }
+
+    @Test
+    public void all_lights_should_be_stopped_when_hour_is_0() {
+        assertThat(BerlinClock.formatFiveHour(0)).isEqualTo("OOOO");
+    }
 }
