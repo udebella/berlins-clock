@@ -34,4 +34,14 @@ public class BerlinClockTest {
     public void the_two_first_light_should_be_on_when_hour_is_10() {
         assertThat(BerlinClock.formatFiveHour(10)).isEqualTo("RROO");
     }
+
+    @Test(expected = AssertionError.class)
+    public void should_not_allow_more_than_24_hour() {
+        BerlinClock.formatFiveHour(24);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void should_not_allow_negative_hours() {
+        BerlinClock.formatFiveHour(-1);
+    }
 }

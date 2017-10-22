@@ -18,6 +18,7 @@ public class BerlinClock {
     }
 
     public static String formatFiveHour(int hours) {
+        assert hours >= 0 && hours < 23 : "There is only 23 hours in a day";
         int nbLightOn = hours / 5;
 
         return IntStream.range(0, 4)
