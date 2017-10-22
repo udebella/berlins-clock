@@ -44,8 +44,17 @@ public class BerlinClock {
         return formatOnLights(nbLightOn, LightTypes.YELLOW_LIGHT_ON);
     }
 
-    public static String formatFiveMinute(Minute of) {
-        return "OOOOOOOOOOO";
+    public static String formatFiveMinute(Minute minute) {
+        int nbLightOn = minute.getNumber() / 5;
+        return IntStream.range(0, 11)
+                .mapToObj(value -> {
+                    if (value < nbLightOn) {
+                        return LightTypes.YELLOW_LIGHT_ON;
+                    }
+                    return LightTypes.LIGHT_OFF;
+                })
+                .map(lightType -> lightType.stringRepresentation)
+                .collect(Collectors.joining());
     }
 
     private static String formatOnLights(int nbLightOn) {

@@ -83,4 +83,11 @@ public class BerlinClockTest {
 
         assertThat(BerlinClock.formatFiveMinute(minute)).isEqualTo("OOOOOOOOOOO");
     }
+
+    @Test
+    public void first_light_should_be_on_when_minute_is_5() {
+        final Minute minute = Minute.of(5);
+
+        assertThat(BerlinClock.formatFiveMinute(minute)).isEqualTo("YOOOOOOOOOO");
+    }
 }
