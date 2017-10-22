@@ -34,21 +34,22 @@ public class BerlinClock {
         return formatOnLights(nbLightOn);
     }
 
+    public static String formatOneMinute(Minute minute) {
+        return formatOnLights(minute.getNumber(), "Y");
+    }
+
     private static String formatOnLights(int nbLightOn) {
+        return formatOnLights(nbLightOn, "R");
+    }
+
+    private static String formatOnLights(int nbLightOn, String light) {
         return IntStream.range(0, 4)
                 .mapToObj(value -> {
                     if (value < nbLightOn) {
-                        return "R";
+                        return light;
                     }
                     return "O";
                 })
                 .collect(Collectors.joining());
-    }
-
-    public static String formatOneMinute(Minute minute) {
-        if (minute.getNumber() > 0) {
-            return "YOOO";
-        }
-        return "OOOO";
     }
 }
