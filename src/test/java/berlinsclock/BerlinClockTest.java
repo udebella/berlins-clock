@@ -76,4 +76,11 @@ public class BerlinClockTest {
         final Minute minute = Minute.of(5);
         assertThat(BerlinClock.formatOneMinute(minute)).isEqualTo("OOOO");
     }
+
+    @Test
+    public void all_five_minute_lights_should_be_stopped_when_minute_is_0() {
+        final Minute minute = Minute.of(0);
+
+        assertThat(BerlinClock.formatFiveMinute(minute)).isEqualTo("OOOOOOOOOOO");
+    }
 }

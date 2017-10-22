@@ -44,6 +44,10 @@ public class BerlinClock {
         return formatOnLights(nbLightOn, LightTypes.YELLOW_LIGHT_ON);
     }
 
+    public static String formatFiveMinute(Minute of) {
+        return "OOOOOOOOOOO";
+    }
+
     private static String formatOnLights(int nbLightOn) {
         return formatOnLights(nbLightOn, LightTypes.RED_LIGHT_ON);
     }
