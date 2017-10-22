@@ -44,4 +44,8 @@ public class BerlinClock {
                 })
                 .collect(Collectors.joining());
     }
+
+    public static String formatOneMinute(Minute minute) {
+        return "OOOO";
+    }
 }
