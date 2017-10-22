@@ -1,6 +1,7 @@
 package berlinsclock;
 
 import java.time.LocalTime;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -41,39 +42,39 @@ public class BerlinClock {
     public static String formatOneMinute(Minute minute) {
         final int nbLightOn = minute.getNumber() % 5;
 
-        return formatOnLights(nbLightOn, LightTypes.YELLOW_LIGHT_ON);
+        return formatOnLights(4, onOffLightMapper(nbLightOn, value -> LightTypes.YELLOW_LIGHT_ON));
     }
 
     public static String formatFiveMinute(Minute minute) {
         int nbLightOn = minute.getNumber() / 5;
-        return IntStream.range(0, 11)
-                .mapToObj(value -> {
-                    if (value < nbLightOn) {
-                        if ((value + 1) % 3 == 0) {
-                            return LightTypes.RED_LIGHT_ON;
-                        }
-                        return LightTypes.YELLOW_LIGHT_ON;
-                    }
-                    return LightTypes.LIGHT_OFF;
-                })
-                .map(lightType -> lightType.stringRepresentation)
-                .collect(Collectors.joining());
+        return formatOnLights(11, onOffLightMapper(nbLightOn, BerlinClock::redYellowLightAlternate));
     }
 
     private static String formatOnLights(int nbLightOn) {
-        return formatOnLights(nbLightOn, LightTypes.RED_LIGHT_ON);
+        return formatOnLights(4, onOffLightMapper(nbLightOn, value -> LightTypes.RED_LIGHT_ON));
     }
 
-    private static String formatOnLights(int nbLightOn, LightTypes light) {
-        return IntStream.range(0, 4)
-                .mapToObj(value -> {
-                    if (value < nbLightOn) {
-                        return light;
-                    }
-                    return LightTypes.LIGHT_OFF;
-                })
+    private static String formatOnLights(int nbLightTotal, IntFunction<LightTypes> lightToDisplayMapper) {
+        return IntStream.range(0, nbLightTotal)
+                .mapToObj(lightToDisplayMapper)
                 .map(lightType -> lightType.stringRepresentation)
                 .collect(Collectors.joining());
+    }
+
+    private static IntFunction<LightTypes> onOffLightMapper(int nbLightOn, IntFunction<LightTypes> onLightMapper) {
+        return value -> {
+            if (value < nbLightOn) {
+                return onLightMapper.apply(value);
+            }
+            return LightTypes.LIGHT_OFF;
+        };
+    }
+
+    private static LightTypes redYellowLightAlternate(int value) {
+        if ((value + 1) % 3 == 0) {
+            return LightTypes.RED_LIGHT_ON;
+        }
+        return LightTypes.YELLOW_LIGHT_ON;
     }
 
     private enum LightTypes {
