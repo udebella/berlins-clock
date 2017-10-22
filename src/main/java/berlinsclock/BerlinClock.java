@@ -10,10 +10,12 @@ public class BerlinClock {
     public static String format(LocalTime time) {
         final Hours hours = Hours.of(time.getHour());
         final Seconds seconds = Seconds.of(time.getSecond());
+        final Minute minute = Minute.of(time.getMinute());
 
         return formatSeconds(seconds)
                 + LINE_SEPARATOR + formatFiveHour(hours)
-                + LINE_SEPARATOR + formatOneHour(hours);
+                + LINE_SEPARATOR + formatOneHour(hours)
+                + LINE_SEPARATOR + formatOneMinute(minute);
     }
 
     public static String formatSeconds(Seconds seconds) {
