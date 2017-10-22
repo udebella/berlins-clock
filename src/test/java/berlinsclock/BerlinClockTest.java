@@ -8,7 +8,7 @@ public class BerlinClockTest {
     @Test
     public void seconds_light_should_be_on_when_seconds_are_even() {
         final Seconds seconds = Seconds.of(4);
-        assertThat(BerlinClock.formatSeconds(seconds)).isEqualTo("Y");
+        assertThat(BerlinClock.formatSeconds(seconds)).isEqualTo("R");
     }
 
     @Test

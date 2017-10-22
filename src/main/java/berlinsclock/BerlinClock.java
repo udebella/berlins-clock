@@ -5,17 +5,22 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BerlinClock {
+    private static final String LINE_SEPARATOR = "\n";
+    private static final String YELLOW_LIGHT_ON = "Y";
+    private static final String LIGHT_OFF = "O";
+    private static final String RED_LIGHT_ON = "R";
+
     public static String format(LocalTime time) {
         final Hours hours = Hours.of(time.getHour());
         final Seconds seconds = Seconds.of(time.getSecond());
 
         return formatSeconds(seconds)
-                + "\n" + formatFiveHour(hours)
-                + "\n" + formatOneHour(hours);
+                + LINE_SEPARATOR + formatFiveHour(hours)
+                + LINE_SEPARATOR + formatOneHour(hours);
     }
 
     public static String formatSeconds(Seconds seconds) {
-        return isEvenNumber(seconds.getNumber()) ? "Y" : "O";
+        return isEvenNumber(seconds.getNumber()) ? RED_LIGHT_ON : LIGHT_OFF;
     }
 
     private static boolean isEvenNumber(int number) {
@@ -35,11 +40,11 @@ public class BerlinClock {
     }
 
     public static String formatOneMinute(Minute minute) {
-        return formatOnLights(minute.getNumber(), "Y");
+        return formatOnLights(minute.getNumber(), YELLOW_LIGHT_ON);
     }
 
     private static String formatOnLights(int nbLightOn) {
-        return formatOnLights(nbLightOn, "R");
+        return formatOnLights(nbLightOn, RED_LIGHT_ON);
     }
 
     private static String formatOnLights(int nbLightOn, String light) {
@@ -48,7 +53,7 @@ public class BerlinClock {
                     if (value < nbLightOn) {
                         return light;
                     }
-                    return "O";
+                    return LIGHT_OFF;
                 })
                 .collect(Collectors.joining());
     }
