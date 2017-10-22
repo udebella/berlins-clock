@@ -1,6 +1,8 @@
 package berlinsclock;
 
 import java.time.LocalTime;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BerlinClock {
     public static String format(LocalTime time) {
@@ -16,12 +18,15 @@ public class BerlinClock {
     }
 
     public static String formatFiveHour(int hours) {
-        if (hours >= 10) {
-            return "RROO";
-        }
-        if (hours >= 5) {
-            return "ROOO";
-        }
-        return "OOOO";
+        int nbLightOn = hours / 5;
+
+        return IntStream.range(0, 4)
+                .mapToObj(value -> {
+                    if (value < nbLightOn) {
+                        return "R";
+                    }
+                    return "O";
+                })
+                .collect(Collectors.joining());
     }
 }
