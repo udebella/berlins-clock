@@ -46,6 +46,9 @@ public class BerlinClock {
     }
 
     public static String formatOneMinute(Minute minute) {
+        if (minute.getNumber() > 0) {
+            return "YOOO";
+        }
         return "OOOO";
     }
 }
