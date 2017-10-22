@@ -16,6 +16,7 @@ public class BerlinClock {
         return formatSeconds(seconds)
                 + LINE_SEPARATOR + formatFiveHour(hours)
                 + LINE_SEPARATOR + formatOneHour(hours)
+                + LINE_SEPARATOR + formatFiveMinute(minute)
                 + LINE_SEPARATOR + formatOneMinute(minute);
     }
 

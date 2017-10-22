@@ -8,7 +8,7 @@ public class Hours {
     }
 
     public static Hours of(int number) {
-        assert number >= 0 && number < 23 : "Hours should be between 0 and 23";
+        assert number >= 0 && number < 24 : "Hours should be between 0 and 23";
         return new Hours(number);
     }
 
