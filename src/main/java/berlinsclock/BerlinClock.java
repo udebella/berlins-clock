@@ -8,9 +8,10 @@ public class BerlinClock {
     }
 
     public static String formatSeconds(int seconds) {
-        if (seconds % 2 == 0) {
-            return "Y";
-        }
-        return "O";
+        return isEvenNumber(seconds) ? "Y" : "O";
+    }
+
+    private static boolean isEvenNumber(int seconds) {
+        return seconds % 2 == 0;
     }
 }
