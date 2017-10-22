@@ -8,6 +8,9 @@ public class BerlinClock {
     }
 
     public static String formatSeconds(int seconds) {
-        return "Y";
+        if (seconds % 2 == 0) {
+            return "Y";
+        }
+        return "O";
     }
 }
