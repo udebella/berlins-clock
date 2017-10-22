@@ -13,6 +13,6 @@ public class BerlinClockFeature {
 
         String berlinRepresentation = BerlinClock.format(time);
 
-        assertThat(berlinRepresentation).isEqualTo("O\nRRRO\nRRRR\nYYRYYRYY\nYYOO");
+        assertThat(berlinRepresentation).isEqualTo("O\nRRRO\nRRRR\nYYRYYRYYOOO\nYYOO");
     }
 }
