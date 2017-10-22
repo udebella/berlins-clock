@@ -23,20 +23,17 @@ public class BerlinClock {
     public static String formatFiveHour(Hours hours) {
         int nbLightOn = hours.getNumber() / 5;
 
-        return IntStream.range(0, 4)
-                .mapToObj(value -> {
-                    if (value < nbLightOn) {
-                        return "R";
-                    }
-                    return "O";
-                })
-                .collect(Collectors.joining());
+        return formatOnLights(nbLightOn);
     }
 
     public static String formatOneHour(Hours hours) {
+        return formatOnLights(hours.getNumber());
+    }
+
+    private static String formatOnLights(int nbLightOn) {
         return IntStream.range(0, 4)
                 .mapToObj(value -> {
-                    if (value < hours.getNumber()) {
+                    if (value < nbLightOn) {
                         return "R";
                     }
                     return "O";
