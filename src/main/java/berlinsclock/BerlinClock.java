@@ -6,9 +6,6 @@ import java.util.stream.IntStream;
 
 public class BerlinClock {
     private static final String LINE_SEPARATOR = "\n";
-    private static final String YELLOW_LIGHT_ON = "Y";
-    private static final String LIGHT_OFF = "O";
-    private static final String RED_LIGHT_ON = "R";
 
     public static String format(LocalTime time) {
         final Hours hours = Hours.of(time.getHour());
@@ -20,7 +17,7 @@ public class BerlinClock {
     }
 
     public static String formatSeconds(Seconds seconds) {
-        return isEvenNumber(seconds.getNumber()) ? RED_LIGHT_ON : LIGHT_OFF;
+        return isEvenNumber(seconds.getNumber()) ? LightTypes.RED_LIGHT_ON.stringRepresentation : LightTypes.LIGHT_OFF.stringRepresentation;
     }
 
     private static boolean isEvenNumber(int number) {
@@ -40,21 +37,34 @@ public class BerlinClock {
     }
 
     public static String formatOneMinute(Minute minute) {
-        return formatOnLights(minute.getNumber(), YELLOW_LIGHT_ON);
+        return formatOnLights(minute.getNumber(), LightTypes.YELLOW_LIGHT_ON);
     }
 
     private static String formatOnLights(int nbLightOn) {
-        return formatOnLights(nbLightOn, RED_LIGHT_ON);
+        return formatOnLights(nbLightOn, LightTypes.RED_LIGHT_ON);
     }
 
-    private static String formatOnLights(int nbLightOn, String light) {
+    private static String formatOnLights(int nbLightOn, LightTypes light) {
         return IntStream.range(0, 4)
                 .mapToObj(value -> {
                     if (value < nbLightOn) {
                         return light;
                     }
-                    return LIGHT_OFF;
+                    return LightTypes.LIGHT_OFF;
                 })
+                .map(lightType -> lightType.stringRepresentation)
                 .collect(Collectors.joining());
+    }
+
+    private enum LightTypes {
+        YELLOW_LIGHT_ON("Y"),
+        RED_LIGHT_ON("R"),
+        LIGHT_OFF("O");
+
+        private final String stringRepresentation;
+
+        LightTypes(String stringRepresentation) {
+            this.stringRepresentation = stringRepresentation;
+        }
     }
 }
