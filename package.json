@@ -1,0 +1,23 @@
+{
+  "name": "berlinclock",
+  "version": "1.0.0",
+  "description": "kata berlin's clock",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udebella/berlins-clock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udebella/berlins-clock/issues"
+  },
+  "homepage": "https://github.com/udebella/berlins-clock#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}
