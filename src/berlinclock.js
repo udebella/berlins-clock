@@ -1,19 +1,19 @@
+const compose = (...functions) => param => functions.reduce((acc, fn) => fn(acc), param)
 const range = size => [...new Array(size).keys()]
 
-const euclideanDivisionBy5 = minute => {
-    return ~~(minute / 5)
-}
+const modulo = modulo => number => number % modulo
+const euclideanDivisionBy5 = minute => ~~(minute / 5)
+const modulo5 = modulo(5)
+const add1 = number => number + 1
+const isOdd = compose(add1, modulo(2))
+const oneOverThree = compose(add1, modulo(3))
 
 const isLightOn = lightColor => nbLightOn => (lightNumber, index) =>
     lightNumber < nbLightOn ? lightColor(index) : 'O'
-
-const allYellowLight = isLightOn(_ => 'Y')
-const allRedLights = isLightOn(_ => 'R')
+const allYellowLightsOn = isLightOn(_ => 'Y')
+const allRedLightsOn = isLightOn(_ => 'R')
 const oneLightOverThreeIsRed = isLightOn(index => {
-    if ((index + 1) % 3 === 0) {
-        return 'R'
-    }
-    return 'Y'
+    return oneOverThree(index) ? 'Y' : 'R';
 })
 
 const displayLights = nbLightTotal => formatLight => {
@@ -21,53 +21,26 @@ const displayLights = nbLightTotal => formatLight => {
         .map(formatLight)
         .join('');
 }
-
 const oneLight = displayLights(1)
 const fourLight = displayLights(4)
 const elevenLight = displayLights(11)
 
+const retrieveHours = date => date.getHours()
+const retrieveMinutes = date => date.getMinutes()
+const retrieveSeconds = date => date.getSeconds()
 
-class BerlinClock {
-    singleMinutes(date) {
-        const minute = date.getMinutes()
-        const nbLightOn = minute % 5
+const singleMinutes = compose(retrieveMinutes, modulo5, allYellowLightsOn, fourLight)
+const fiveMinutes = compose(retrieveMinutes, euclideanDivisionBy5, oneLightOverThreeIsRed, elevenLight)
+const singleHours = compose(retrieveHours, modulo5, allRedLightsOn, fourLight)
+const fiveHours = compose(retrieveHours, euclideanDivisionBy5, allRedLightsOn, fourLight)
+const seconds = compose(retrieveSeconds, isOdd, allYellowLightsOn, oneLight)
+const format = date => [seconds, fiveHours, singleHours, fiveMinutes, singleMinutes].map(fn => fn(date)).join('')
 
-        return fourLight(allYellowLight(nbLightOn))
-    }
-
-    fiveMinutes(date) {
-        const minute = date.getMinutes()
-        const nbLightOn = euclideanDivisionBy5(minute)
-
-        return elevenLight(oneLightOverThreeIsRed(nbLightOn))
-    }
-
-    singleHours(date) {
-        const minute = date.getHours()
-        const nbLightOn = minute % 5
-
-        return fourLight(allRedLights(nbLightOn))
-    }
-
-    fiveHours(date) {
-        const minute = date.getHours()
-        const nbLightOn = euclideanDivisionBy5(minute)
-
-        return fourLight(allRedLights(nbLightOn))
-    }
-
-    seconds(date) {
-        const minute = date.getSeconds()
-        const nbLightOn = (minute + 1) % 2
-
-        return oneLight(allYellowLight(nbLightOn))
-    }
-
-    format(date) {
-        return [this.seconds, this.fiveHours, this.singleHours, this.fiveMinutes, this.singleMinutes]
-            .map(fn => fn(date))
-            .join('');
-    }
+module.exports = {
+    singleMinutes,
+    fiveMinutes,
+    singleHours,
+    fiveHours,
+    seconds,
+    format
 }
-
-module.exports = new BerlinClock()
