@@ -4,12 +4,12 @@ const euclideanDivisionBy5 = minute => {
     return ~~(minute / 5)
 }
 
-const formatLight = lightColor => nbLightOn => (lightNumber, index) =>
+const isLightOn = lightColor => nbLightOn => (lightNumber, index) =>
     lightNumber < nbLightOn ? lightColor(index) : 'O'
 
-const allYellowLight = formatLight(_ => 'Y')
-const allRedLights = formatLight(_ => 'R')
-const oneLightOverThreeIsRed = formatLight(index => {
+const allYellowLight = isLightOn(_ => 'Y')
+const allRedLights = isLightOn(_ => 'R')
+const oneLightOverThreeIsRed = isLightOn(index => {
     if ((index + 1) % 3 === 0) {
         return 'R'
     }
